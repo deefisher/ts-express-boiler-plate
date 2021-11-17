@@ -1,16 +1,19 @@
-import { exit } from 'process';
-import { IEnv } from '../interfaces/IEnv';
-export { IEnv } from '../interfaces/IEnv';
+import { dotEnvValue, IEnv } from '../interfaces/IEnv';
 
-export const env: () => IEnv = () => {
-    if (process.env.ENVIRONMENT === 'dev') {
-        let env = require('./dev');
-        return env;
-    } else if (process.env.ENVIRONMENT === 'production') {
-        let env = require('./prod');
-        return env;
-    } else {
-        console.log(`Error. shell variable ENVIRONMENT not set. Acceptable values are 'dev' | 'production'`);
-        exit(1);
-    }
+export const env: IEnv = {
+    port: 8082,
+    domain: '',
+    apiPath: '',
+    staticPath: '',
+    db: {
+        name: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        pw: process.env.DB_PASSWORD,
+        account: process.env.DB_ACCOUNT,
+        uri: (user: dotEnvValue, pw: dotEnvValue, name: dotEnvValue, account: dotEnvValue) => {
+            return `mongodb://${user}:${encodeURIComponent(
+                pw as string,
+            )}@${account}-shard-00-00.aim80.mongodb.net:27017,${account}-shard-00-01.aim80.mongodb.net:27017,${account}-shard-00-02.aim80.mongodb.net:27017/${name}?ssl=true&replicaSet=atlas-u2yfd2-shard-0&authSource=admin&retryWrites=true&w=majority`;
+        },
+    },
 };

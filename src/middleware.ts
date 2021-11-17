@@ -8,7 +8,7 @@ const cors = require('cors');
 
 export const middleware = [
     session({
-        secret: env()?.adminCreds?.secret ?? '',
+        secret: env?.adminCreds?.secret ?? '',
         resave: true,
         saveUninitialized: true,
     }),

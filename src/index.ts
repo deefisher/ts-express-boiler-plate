@@ -4,11 +4,11 @@ import { App } from './application';
 import { middleware } from './middleware';
 import { routerTemplate } from './routes/example.router';
 
-const port: number = env().port ?? 8080;
+const port: number = env.port ?? 8080;
 let dbConString;
 
 try {
-    dbConString = env().db.uri(env().db.user, env().db.pw, env().db.name, env().db.account);
+    dbConString = env.db.uri(env.db.user, env.db.pw, env.db.name, env.db.account);
 } catch (e) {
     console.log('Failed to create DB Connection string:', e);
 }

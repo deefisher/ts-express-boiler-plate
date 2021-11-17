@@ -20,8 +20,8 @@ export class App {
         private port: number,
         middleware: Array<any>,
         routes: Array<express.Router>,
-        private apiPath: string = env().apiPath ? env().apiPath : '/api',
-        private staticPath: string = env().staticPath ? env().staticPath : 'public',
+        private apiPath: string = env.apiPath ? env.apiPath : '/api',
+        private staticPath: string = env.staticPath ? env.staticPath : 'public',
     ) {
         //* Create a new express app
         this.app = express();

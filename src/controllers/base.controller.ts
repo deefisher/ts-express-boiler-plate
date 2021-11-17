@@ -29,11 +29,7 @@ export class BaseController {
      * @param status custom status code, defaults to 500
      */
     errRes(err: any, res: Response, message = 'Sever Error', status = 500) {
-        if (env().stage === 'dev') {
-            res.status(status).json({ error: message });
-        } else {
-            res.status(status).json({ error: message });
-        }
+        res.status(status).json({ error: message });
     }
     /**
      * Creates a new document
