@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import session from 'express-session';
 import multer from 'multer';
 import { env } from './environment/env';
 import express from 'express';
@@ -7,11 +6,6 @@ import express from 'express';
 const cors = require('cors');
 
 export const middleware = [
-    session({
-        secret: env?.adminCreds?.secret ?? '',
-        resave: true,
-        saveUninitialized: true,
-    }),
     express.json(),
     express.urlencoded({ extended: true }),
     multer({ dest: process.cwd() + '/tmp' }).single('media'),
