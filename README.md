@@ -18,7 +18,7 @@ Complete the necessary parameters for your project. You must fill in the `db` se
 
 ---
 
-### server.ts
+### index.ts
 
 Entry point for NodeJS to run the Express application. Use this file to create an App instance, connect to database and get the app to listn on provided port number. 
 
@@ -31,7 +31,7 @@ Use this file to build an array of middleware to be used at the app level (imple
 ---
 ### routes/
 
-Create a router file based on the template for each grouping of routes in your application. Add the exported express router to the array in the app instance object in the `server.ts` file
+Create a router file based on the template for each grouping of routes in your application. Add the exported express router to the array in the app instance object in the `index.ts` file
 
 ---
 ### controllers/

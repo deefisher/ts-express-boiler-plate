@@ -7,12 +7,12 @@ export const ENV:IEnv = {
     apiPath: '',
     staticPath: '',
     db:{
-        name: 'COLLECTION_NAME',
-        user:'',
-        pw: '',
-        account: '@mongo-account',
+        name: 'myFirstDatabase',
+        user:'dbUser',
+        pw: '5aqQ!W74w5#3P6-',
+        account: 'cluster0',
         uri: (user: string, pw :string, name :string, account: string) => {
-            return `mongodb+srv://${user}:${pw}${account}.gcp.mongodb.net/${name}?retryWrites=true&w=majority`
+            return `mongodb+srv://${user}:${pw}@${account}.gcp.mongodb.net/${name}?retryWrites=true&w=majority`
         }
     },
     

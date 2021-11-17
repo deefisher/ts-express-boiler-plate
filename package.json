@@ -1,27 +1,29 @@
 {
-  "name": "expresstemplate",
-  "version": "1.0.0",
-  "description": "Template/Boilerplate for Typescript express server app, for API's and backends application",
-  "main": "server.js",
-  "scripts": {
-    "build": "tsc",
-    "start:dev": "ENVIRONMENT=dev node ./dist/server.js",
-    "start:prod": "ENVIRONMENT=production node ./dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "MXDS",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/express": "^4.17.12",
-    "@types/express-session": "^1.17.3",
-    "@types/multer": "^1.4.5",
-    "@types/node": "^15.12.1"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.2",
-    "mongoose": "^5.12.13",
-    "multer": "^1.4.2"
-  }
+    "name": "ts-express-boilerplate",
+    "version": "1.0.0",
+    "description": "Template/Boilerplate for Typescript express server app, for API's and backends application",
+    "main": "index.js",
+    "scripts": {
+        "start:build": "tsc -w",
+        "start:run": "nodemon build/index.js",
+        "start": "concurrently npm:start:*"
+    },
+    "author": "DeeFisher",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/express": "^4.17.12",
+        "@types/express-session": "^1.17.3",
+        "@types/multer": "^1.4.5",
+        "@types/node": "^15.12.1"
+    },
+    "dependencies": {
+        "concurrently": "^6.3.0",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "express-session": "^1.17.2",
+        "mongoose": "^6.0.13",
+        "multer": "^1.4.2",
+        "nodemon": "^2.0.14"
+    }
 }

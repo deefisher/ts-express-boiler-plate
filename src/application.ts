@@ -1,7 +1,7 @@
-import { env } from "./environment/env";
-import { Application } from "express";
-import express = require("express");
-import mongoose = require("mongoose");
+import { env } from './environment/env';
+import { Application } from 'express';
+import express = require('express');
+import mongoose = require('mongoose');
 
 /**
  * Primary Class that constructs all of the parts of the Express server
@@ -11,7 +11,7 @@ export class App {
 
     /**
      * @param port Port Application listens on
-     * @param middleware Array of middleware to be applied to app 
+     * @param middleware Array of middleware to be applied to app
      * @param routes Array of express.Router objects for application routes
      * @param apiPath Base path for this api that will be prepended to all routes
      * @param staticPath path to folder for public files express will make available
@@ -21,7 +21,7 @@ export class App {
         middleware: Array<any>,
         routes: Array<express.Router>,
         private apiPath: string = env().apiPath ? env().apiPath : '/api',
-        private staticPath: string = env().staticPath ? env().staticPath :"public"
+        private staticPath: string = env().staticPath ? env().staticPath : 'public',
     ) {
         //* Create a new express app
         this.app = express();
@@ -70,18 +70,18 @@ export class App {
     public mongoDB(uri: string) {
         const connect = () => {
             mongoose
-                .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+                .connect(uri)
                 .then(() => {
                     return;
                 })
                 .catch((error) => {
-                    console.log("DATABASE CONNECTION FAILED \n", error);
+                    console.log('DATABASE CONNECTION FAILED \n', error);
                     return process.exit(1);
                 });
         };
         connect();
 
-        mongoose.connection.on("disconnected", connect);
+        mongoose.connection.on('disconnected', connect);
     }
 
     /**
@@ -89,7 +89,7 @@ export class App {
      */
     public listen() {
         this.app.listen(this.port, () => {
-            console.log("APP LISTENING ON PORT:", this.port);
+            console.log('APP LISTENING ON PORT:', this.port);
         });
     }
 }
