@@ -2,6 +2,7 @@ export interface IEnv {
     stage?: string;
     port: number;
     db: IMongoDBCfg;
+    auth: IOktaConfig;
     S3Creds?: IS3Creds;
     adminCreds?: IAdminCreds;
     stripe?: IStripeCreds;
@@ -24,6 +25,11 @@ export interface IMongoDBCfg {
     pw: dotEnvValue;
     account: dotEnvValue;
     uri: (user: dotEnvValue, pw: dotEnvValue, name: dotEnvValue, account: dotEnvValue) => string;
+}
+
+export interface IOktaConfig {
+    orgUrl: dotEnvValue;
+    token: dotEnvValue;
 }
 
 export interface IS3Creds {

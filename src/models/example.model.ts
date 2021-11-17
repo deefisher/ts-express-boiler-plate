@@ -15,8 +15,8 @@ const NestedSchema = new Schema({
  */
 const ExampleSchema: Schema = new Schema({
     title: { type: String },
-    date_created: { type: Date },
-    date_modified: { type: Date },
+    date_created: { type: Number },
+    date_modified: { type: Number },
     order: { type: Number, default: 0 },
     hide: { type: Boolean, default: false },
     details: NestedSchema,

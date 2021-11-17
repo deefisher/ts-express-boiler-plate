@@ -16,4 +16,8 @@ export const env: IEnv = {
             )}@${account}-shard-00-00.aim80.mongodb.net:27017,${account}-shard-00-01.aim80.mongodb.net:27017,${account}-shard-00-02.aim80.mongodb.net:27017/${name}?ssl=true&replicaSet=atlas-u2yfd2-shard-0&authSource=admin&retryWrites=true&w=majority`;
         },
     },
+    auth: {
+        orgUrl: process.env.AUTH_ORG_URL,
+        token: process.env.AUTH_API_TOKEN, // Obtained from Developer Dashboard
+    },
 };
