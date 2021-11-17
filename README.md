@@ -5,8 +5,7 @@ This project is intended to be used as a boilerplate for creating Express API's 
 To get started run:
 ```bash
 npm install
-npm run build
-npm run start:dev
+npm start
 ```
 
 ## Files and Folders
@@ -14,7 +13,14 @@ npm run start:dev
 
 ### environment/
 
-Complete the necessary parameters for your project. You must fill in the `db` section if using MongoDB. Files will be replaced depending on wether you run `npm run start:dev` or `npm run start:prod`.
+Dotenv will be installed, create a file named `.env` and add necessary mongoDb parameters:
+```
+DB_NAME=<database name>
+DB_USER=<user name>
+DB_PASSWORD=<password>
+DB_ACCOUNT=<account name>
+PORT=<port>
+```
 
 ---
 
