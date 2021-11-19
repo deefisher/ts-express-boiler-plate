@@ -2,7 +2,7 @@ require('dotenv').config();
 import { env } from './environment/env';
 import { App } from './application';
 import { middleware } from './middleware';
-import { routerTemplate } from './routes/example.router';
+import { routerTemplate, usersRouter } from './routes';
 
 const port: number = env.port ?? 8080;
 let dbConString;
@@ -19,7 +19,7 @@ try {
 const app = new App(
     port,
     middleware,
-    [routerTemplate], //* Add your express router objects here
+    [routerTemplate, usersRouter], //* Add your express router objects here
 );
 
 /**

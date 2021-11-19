@@ -8,7 +8,7 @@ export class AuthClient {
         if (!AuthClient.instance) {
             AuthClient.instance = new okta.Client({
                 orgUrl: env.auth.orgUrl,
-                token: env.auth.orgUrl,
+                token: env.auth.token,
             });
         }
 
