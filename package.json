@@ -16,6 +16,7 @@
         "@types/node": "^15.12.1"
     },
     "dependencies": {
+        "@okta/jwt-verifier": "^2.3.0",
         "@okta/okta-sdk-nodejs": "^6.0.0",
         "concurrently": "^6.3.0",
         "cors": "^2.8.5",
