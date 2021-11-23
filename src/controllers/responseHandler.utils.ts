@@ -12,12 +12,12 @@ export class ResponseHandler {
     }
     /**
      * @param err error object of any type genereated by the system
-     * @param message custom response message to be provided to the client in a JSON body response ({error:'message'})
+     * @param message custom response message or payload to be provided to the client in a JSON body response ({error:'message'})
      * @param res response object to be used to to send
      * @param status custom status code, defaults to 500
      */
-    errRes(err: any, res: Response, message = 'Server Error', status = 500) {
-        console.log('err', err.headers);
-        res.status(status).json({ error: message });
+    errRes(err: any, res: Response, payload: any = 'Server Error', status = 500) {
+        console.log('err', err);
+        res.status(status).json({ error: payload });
     }
 }

@@ -18,7 +18,6 @@ export class AuthMiddleware {
         }
 
         const accessToken = match?.[1];
-        console.log('accessToken', accessToken);
 
         return oktaJwtVerifier
             .verifyAccessToken(accessToken, 'api://default')

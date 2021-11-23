@@ -1,19 +1,27 @@
 import { Request, Response } from 'express';
+import { ZodError, ZodObject } from 'zod';
 import { IAuthClient } from '../types/user.interface';
 import { ResponseHandler } from './responseHandler.utils';
 
 export class UsersController {
     responseHandler: ResponseHandler = new ResponseHandler();
-    constructor(public client: IAuthClient) {}
+    constructor(public client: IAuthClient, public newUserProfileSchema: ZodObject<any>) {}
 
-    createUser(req: Request, res: Response) {
-        return this.client
-            .createUser(req.body)
-            .then((result) => {
-                this.responseHandler.jsonRes(result, res);
+    async createUser(req: Request, res: Response) {
+        return this.newUserProfileSchema
+            .parseAsync(req.body)
+            .then(() => {
+                return this.client
+                    .createUser(req.body)
+                    .then((result) => {
+                        this.responseHandler.jsonRes(result, res);
+                    })
+                    .catch((err: Error) => {
+                        this.responseHandler.errRes(err, res, err);
+                    });
             })
-            .catch((err: Error) => {
-                this.responseHandler.errRes(err, res, 'Failed to create user');
+            .catch((err: ZodError) => {
+                this.responseHandler.errRes(err, res, err, 400);
             });
     }
 }
