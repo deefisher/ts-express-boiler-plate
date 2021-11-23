@@ -5,6 +5,9 @@ const oktaJwtVerifier = new OktaJwtVerifier({
 });
 
 export class AuthMiddleware {
+    /**
+     * Checks the jwt value provided in the authorization header is valid
+     */
     validateAuth = (req: Request, res: Response, next: NextFunction) => {
         const authHeader = req?.headers?.authorization || '';
         const match = authHeader?.match(/Bearer (.+)/);
@@ -15,7 +18,7 @@ export class AuthMiddleware {
         }
 
         const accessToken = match?.[1];
-        console.log('accessToken', accessToken)
+        console.log('accessToken', accessToken);
 
         return oktaJwtVerifier
             .verifyAccessToken(accessToken, 'api://default')

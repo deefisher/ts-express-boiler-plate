@@ -1,4 +1,4 @@
-import { dotEnvValue, IEnv } from '../interfaces/IEnv';
+import { dotEnvValue, IEnv } from '../types/IEnv';
 
 export const env: IEnv = {
     port: 8082,

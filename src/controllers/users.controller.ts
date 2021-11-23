@@ -1,17 +1,15 @@
-import { User } from '@okta/okta-sdk-nodejs';
 import { Request, Response } from 'express';
-import { AuthClient } from '../authClient';
+import { IAuthClient } from '../types/user.interface';
 import { ResponseHandler } from './responseHandler.utils';
-const okta = require('@okta/okta-sdk-nodejs');
 
 export class UsersController {
     responseHandler: ResponseHandler = new ResponseHandler();
-    client: typeof okta.Client = AuthClient.getInstance();
+    constructor(public client: IAuthClient) {}
 
     createUser(req: Request, res: Response) {
         return this.client
             .createUser(req.body)
-            .then((result: User) => {
+            .then((result) => {
                 this.responseHandler.jsonRes(result, res);
             })
             .catch((err: Error) => {

@@ -1,5 +1,5 @@
 import mongoose = require("mongoose");
-import { IPopulate } from "../interfaces/IPopulate";
+import { IPopulate } from "../types/IPopulate";
 
 /**
  * Provides common CRUD functionality to provided mongoose moodel.

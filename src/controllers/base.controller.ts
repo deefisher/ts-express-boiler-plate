@@ -1,8 +1,8 @@
 import { Response } from 'express';
 import mongoose = require('mongoose');
 import { env } from '../environment/env';
-import { IModel } from '../interfaces/IModel';
-import { IPopulate } from '../interfaces/IPopulate';
+import { IModel } from '../types/IModel';
+import { IPopulate } from '../types/IPopulate';
 import { BaseModel } from '../models/base.model';
 import { ResponseHandler } from './responseHandler.utils';
 

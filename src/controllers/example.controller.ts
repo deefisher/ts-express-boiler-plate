@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ExampleDoc } from '../interfaces/example.interface';
+import { ExampleDoc } from '../types/example.interface';
 import { ExampleModel } from '../models/example.model';
 import { BaseController } from './base.controller';
 
