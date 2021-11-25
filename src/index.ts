@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('debugging-aid/network');
 import { env } from './environment/env';
 import { App } from './application';
 import { middleware } from './middleware';

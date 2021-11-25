@@ -1,9 +1,9 @@
 import { dotEnvValue, IEnv } from '../types/IEnv';
 
 export const env: IEnv = {
-    port: 8082,
-    domain: '',
-    apiPath: '',
+    port: Number(process.env.PORT),
+    domain: process.env.DOMAIN,
+    apiPath: '/api',
     staticPath: '',
     db: {
         name: process.env.DB_NAME,

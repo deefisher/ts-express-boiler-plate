@@ -1,11 +1,17 @@
 import { Response } from 'express';
-import mongoose = require('mongoose');
-import { env } from '../environment/env';
 import { IModel } from '../types/IModel';
 import { IPopulate } from '../types/IPopulate';
-import { BaseModel } from '../models/base.model';
 import { ResponseHandler } from './responseHandler.utils';
+import mongoose = require('mongoose');
 
+const messageStrings = {
+    failedToCreate: 'Failed to create',
+    failedToFindDocuments: 'Failed to find documents',
+    failedToFindDocument: 'Failed to find document',
+    failedToRetrieveDoc: 'Failed to retrieve doc',
+    failedToUpdateDocument: 'Failed to update document',
+    failedToDeleteDocument: 'Failed to delete document',
+};
 /**
  * Provides functions to be used with express routes. Serves common CRUD fuctionality.
  */
@@ -27,7 +33,7 @@ export class BaseController {
     /**
      * Creates a new document
      */
-    create(res: Response, document: any, populate?: IPopulate, errMsg = 'Failed to create') {
+    create(res: Response, document: any, populate?: IPopulate, errMsg = messageStrings.failedToCreate) {
         this.model
             .create<mongoose.Document>(document)
             .then((doc: mongoose.Document) => {
@@ -50,7 +56,7 @@ export class BaseController {
     /**
      * Returns all documents of model
      */
-    find(res: Response, populate?: IPopulate, errMsg = 'Failed to find documents') {
+    find(res: Response, populate?: IPopulate, errMsg = messageStrings.failedToFindDocuments) {
         this.model.find(populate).then(
             (doc) => {
                 this.jsonRes(doc, res);
@@ -67,7 +73,7 @@ export class BaseController {
         res: Response,
         documentId: string,
         populate?: IPopulate,
-        errMsg = `Failed to find document ${documentId}`,
+        errMsg = `${messageStrings.failedToFindDocument}${documentId}`,
     ) {
         this.model
             .findById(documentId, populate)
@@ -80,13 +86,18 @@ export class BaseController {
                 },
             )
             .catch((err) => {
-                this.errRes(err, res, 'Failed to retrieve doc');
+                this.errRes(err, res, messageStrings.failedToRetrieveDoc);
             });
     }
     /**
      * Returns single document from given model that matches the query.
      */
-    findOne(res: Response, query: any, populate?: IPopulate, errMsg = `Failed to find document ${query}`) {
+    findOne(
+        res: Response,
+        query: any,
+        populate?: IPopulate,
+        errMsg = `${messageStrings.failedToFindDocument}${query}`,
+    ) {
         this.model.findOne(query, populate).then(
             (doc) => {
                 this.jsonRes(doc, res);
@@ -96,7 +107,12 @@ export class BaseController {
             },
         );
     }
-    findMany(res: Response, query: any, populate?: IPopulate, errMsg = `Failed to find document ${query}`) {
+    findMany(
+        res: Response,
+        query: any,
+        populate?: IPopulate,
+        errMsg = `${messageStrings.failedToFindDocument}${query}`,
+    ) {
         this.model.findMany(query, populate).then(
             (doc) => {
                 this.jsonRes(doc, res);
@@ -115,7 +131,7 @@ export class BaseController {
         documentId: string,
         document: any,
         populate?: IPopulate | IPopulate[],
-        errMsg = `Failed to update document ${documentId}`,
+        errMsg = `${messageStrings.failedToUpdateDocument} ${documentId}`,
     ) {
         this.model.updateById(documentId, document, populate).then(
             (doc) => {
@@ -129,7 +145,7 @@ export class BaseController {
     /**
      * Deletes a single document selected by id
      */
-    deleteById(res: Response, documentId: string, errMsg = `Failed to delete document ${documentId}`) {
+    deleteById(res: Response, documentId: string, errMsg = `${messageStrings.failedToDeleteDocument} ${documentId}`) {
         this.model.deleteById(documentId).then(
             (doc) => {
                 this.jsonRes(doc, res);

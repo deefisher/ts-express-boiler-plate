@@ -6,7 +6,7 @@ export interface IEnv {
     S3Creds?: IS3Creds;
     adminCreds?: IAdminCreds;
     stripe?: IStripeCreds;
-    domain: string;
+    domain: dotEnvValue;
     apiPath: string;
     staticPath: string;
     azureStorage?: IAzureStorage;

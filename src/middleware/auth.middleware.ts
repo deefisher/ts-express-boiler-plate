@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 const OktaJwtVerifier = require('@okta/jwt-verifier');
 const oktaJwtVerifier = new OktaJwtVerifier({
     issuer: `${process.env.AUTH_ORG_URL}/oauth2/default`,

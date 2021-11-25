@@ -5,9 +5,10 @@ export const usersRouter = express.Router();
 import { usersController } from '../controllers/controllers.module';
 
 // Set the common part of the path for the routes in this router
-const base = '/users';
+export const base = '/users';
+export const create = '/create';
 
 //Routes
-usersRouter.post(`${base}/create`, (req, res) => {
+usersRouter.post(`${base}${create}`, (req, res) => {
     usersController.createUser(req, res);
 });
