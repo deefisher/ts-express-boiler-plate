@@ -2,6 +2,7 @@ import { Response } from 'express';
 const okta = require('@okta/okta-sdk-nodejs');
 
 export class ResponseHandler {
+    defaultErrResMessage: string = 'Server Error';
     /**
      * Sends the document as JSON in the body of response, and sets status to 200
      * @param result the result eg. MongoDB document to be returned to the client as JSON
@@ -16,8 +17,8 @@ export class ResponseHandler {
      * @param res response object to be used to to send
      * @param status custom status code, defaults to 500
      */
-    errRes(err: any, res: Response, payload: any = 'Server Error', status = 500) {
+    errRes(err: any, res: Response, message: any = this.defaultErrResMessage, status = 500) {
         console.log('err', err);
-        res.status(status).json({ error: payload });
+        res.status(err?.status || status).json({ error: Object.keys(err).length ? err : message });
     }
 }

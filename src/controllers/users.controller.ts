@@ -17,11 +17,12 @@ export class UsersController {
                         this.responseHandler.jsonRes(result, res);
                     })
                     .catch((err: Error) => {
-                        this.responseHandler.errRes(err, res, err);
+                        this.responseHandler.errRes(err, res);
                     });
             })
             .catch((err: ZodError) => {
-                this.responseHandler.errRes(err, res, err, 400);
+                console.log('res', res);
+                this.responseHandler.errRes(err, res, 'Invalid payload', 400);
             });
     }
 }

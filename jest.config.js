@@ -2,6 +2,7 @@
 module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    coveragePathIgnorePatterns: ['/node_modules/'],
-    setupFiles: ["dotenv/config"],
+    coveragePathIgnorePatterns: ['/node_modules/', 'utils'],
+    setupFiles: ['dotenv/config'],
+    testPathIgnorePatterns: ['utils'],
 };
