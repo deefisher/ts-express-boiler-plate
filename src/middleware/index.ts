@@ -1,11 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import multer from 'multer';
-import { env } from '../environment/env';
-import express from 'express';
-import { AuthMiddleware } from './auth.middleware';
-
 const cors = require('cors');
-const authMiddleware = new AuthMiddleware();
 
 export const middleware = [
     // authMiddleware.validateAuth, //postman: auth type: Bearer Token jwt

@@ -1,25 +1,19 @@
-import { App } from '../../application';
-import { env } from '../../environment/env';
-import { middleware } from '../../middleware';
-import { base, create, routerTemplate, usersRouter } from '../../routes';
+import { env } from '../../../environment/env';
+import { baseUserUrl, create } from '../../../routes';
 import { db } from './utils/db';
-import { ResponseHandler } from '../responseHandler.utils';
+import { ResponseHandler } from '../../responseHandler.utils';
+import { app } from '../../../jestTestSetup';
 
-jest.mock('../responseHandler.utils', function () {
-    const { ResponseHandler: mockResponseHandler } = jest.requireActual('../responseHandler.utils');
+jest.mock('../../responseHandler.utils', function () {
+    const { ResponseHandler: mockResponseHandler } = jest.requireActual('../../responseHandler.utils');
     return { ResponseHandler: mockResponseHandler };
 });
 
 const nock = require('nock');
 const request = require('supertest');
 
-const { app } = new App(
-    8082,
-    middleware,
-    [routerTemplate, usersRouter], //* Add your express router objects here
-);
-
-const createUserEndpoint = `${env.apiPath}${base}${create}`;
+const createUserExpressServerEndpoint = `${env.apiPath}${baseUserUrl}${create}`;
+const oktaEndpoint = '/api/v1/users';
 
 describe(`users.controllers`, () => {
     describe(`and POST createUserEndpoint`, () => {
@@ -29,10 +23,10 @@ describe(`users.controllers`, () => {
 
         it('should return 200 & valid success response', async () => {
             await nock(process.env.AUTH_ORG_URL)
-                .post('/api/v1/users', db.users.createUser.request)
+                .post(oktaEndpoint, db.users.createUser.request)
                 .reply(200, db.users.createUser.successResponse);
             return await request(app)
-                .post(createUserEndpoint)
+                .post(createUserExpressServerEndpoint)
                 .send(db.users.createUser.request)
                 .set('Accept', 'application/json')
                 .then((response: any) => {
@@ -43,7 +37,7 @@ describe(`users.controllers`, () => {
 
         it('should return 500 & promise error response', async () => {
             await nock(process.env.AUTH_ORG_URL)
-                .post('/api/v1/users', db.users.createUser.request)
+                .post(oktaEndpoint, db.users.createUser.request)
                 .reply(200, db.users.createUser.successResponse);
 
             const mockResponseHandler = new ResponseHandler();
@@ -52,7 +46,7 @@ describe(`users.controllers`, () => {
             };
 
             return await request(app)
-                .post(createUserEndpoint)
+                .post(createUserExpressServerEndpoint)
                 .send(db.users.createUser.request)
                 .set('Accept', 'application/json')
                 .then((response: any) => {
@@ -63,10 +57,10 @@ describe(`users.controllers`, () => {
 
         it('should handle okta 400 and return correct body', async () => {
             await nock(process.env.AUTH_ORG_URL)
-                .post('/api/v1/users', db.users.createUser.request)
+                .post(oktaEndpoint, db.users.createUser.request)
                 .reply(400, db.users.createUser.userExistsResponse);
             return await request(app)
-                .post(createUserEndpoint)
+                .post(createUserExpressServerEndpoint)
                 .send(db.users.createUser.request)
                 .set('Accept', 'application/json')
                 .then((response: any) => {
@@ -77,7 +71,7 @@ describe(`users.controllers`, () => {
 
         it('should handle 400 invalid payload', async () => {
             return await request(app)
-                .post(createUserEndpoint)
+                .post(createUserExpressServerEndpoint)
                 .send(db.users.createUser.invalidRequest)
                 .set('Accept', 'application/json')
                 .then((response: any) => {
