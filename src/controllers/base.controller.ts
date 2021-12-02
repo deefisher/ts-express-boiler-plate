@@ -4,7 +4,7 @@ import { IPopulate } from '../types/IPopulate';
 import { ResponseHandler } from './responseHandler.utils';
 import mongoose = require('mongoose');
 
-const messageStrings = {
+export const messageStrings = {
     failedToCreate: 'Failed to create',
     failedToFindDocuments: 'Failed to find documents',
     failedToFindDocument: 'Failed to find document',

@@ -55,7 +55,7 @@ describe(`users.controllers`, () => {
                 });
         });
 
-        it('should handle okta 400 and return correct body', async () => {
+        it('should handle 400 and return correct body', async () => {
             await nock(process.env.AUTH_ORG_URL)
                 .post(oktaEndpoint, db.users.createUser.request)
                 .reply(400, db.users.createUser.userExistsResponse);
