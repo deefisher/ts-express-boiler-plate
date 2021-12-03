@@ -38,4 +38,23 @@ export const db = {
                 'Example validation failed: _id: Cast to ObjectId failed for value "1234" (type number) at path "_id"',
         },
     },
+    getById: {
+        successfulResponse: {
+            __v: 0,
+            _id: expect.any(String),
+            hide: false,
+            order: 0,
+            title: 'cat',
+        },
+        failureResponse: {
+            kind: 'ObjectId',
+            message: 'Cast to ObjectId failed for value "sdfadsf" (type string) at path "_id" for model "Example"',
+            name: 'CastError',
+            path: '_id',
+            reason: {},
+            stringValue: '"sdfadsf"',
+            value: 'sdfadsf',
+            valueType: 'string',
+        },
+    },
 };

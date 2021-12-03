@@ -29,11 +29,11 @@ describe(`example.controllers`, () => {
         await mongoose.connection.close();
     });
 
-    describe(`and POST createRecord`, () => {
-        beforeEach(() => {
-            jest.spyOn(console, 'log').mockImplementation(() => {});
-        });
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});
+    });
 
+    describe(`and POST createRecord`, () => {
         it(
             'should return 200 & valid success response',
             generateMongoSuccessTest({
@@ -65,7 +65,55 @@ describe(`example.controllers`, () => {
                 endpoint: callUrl,
                 testPayload: db.createRecord.invalidPayload,
                 testResponse: { error: db.createRecord.failureResponse },
+            }),
+        );
+    });
+
+    describe(`and GET getById`, () => {
+        it(
+            'should return 200 & valid success response',
+            generateMongoSuccessTest({
+                appInstance: app,
+                reqType: 'get',
+                endpoint: callUrl,
+                testResponse: db.getById.successfulResponse,
+                recordPackage: {
+                    mongooseInstance: mongoose,
+                    modelName: 'Example',
+                    recordPayload: { title: 'cat' },
+                },
+            }),
+        );
+
+        it(
+            'should return 500 & promise error response',
+            generateMongo500Test({
+                appInstance: app,
+                reqType: 'get',
+                endpoint: callUrl,
+                testResponse: { error: messageStrings.failedToRetrieveDoc },
                 mockResponseHandler: ResponseHandler,
+                recordPackage: {
+                    mongooseInstance: mongoose,
+                    modelName: 'Example',
+                    recordPayload: { title: 'cat' },
+                },
+            }),
+        );
+
+        it(
+            'should return 500 incorrect param',
+            generateMongo500Test({
+                appInstance: app,
+                reqType: 'get',
+                endpoint: callUrl,
+                param: 'sdfadsf',
+                testResponse: { error: db.getById.failureResponse },
+                recordPackage: {
+                    mongooseInstance: mongoose,
+                    modelName: 'Example',
+                    recordPayload: { title: 'cat' },
+                },
             }),
         );
     });
