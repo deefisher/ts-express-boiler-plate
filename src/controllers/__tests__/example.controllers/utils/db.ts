@@ -57,4 +57,44 @@ export const db = {
             valueType: 'string',
         },
     },
+    updateRecord: {
+        payload: {
+            details: {
+                name: 'horse face',
+            },
+        },
+        invalidPayload: {
+            snails: {
+                name: 'horse face',
+            },
+        },
+        successfulResponse: {
+            _id: undefined,
+            order: 0,
+            hide: false,
+            __v: 0,
+            details: {
+                _id: undefined,
+                name: 'horse face',
+            },
+        },
+    },
+    deleteRecord: {
+        succesfulResponse: {
+            _id: undefined,
+            order: 0,
+            hide: false,
+            __v: 0,
+        },
+        failureResponse: {
+            stringValue: '"khu"',
+            valueType: 'string',
+            kind: 'ObjectId',
+            value: 'khu',
+            path: '_id',
+            reason: {},
+            name: 'CastError',
+            message: 'Cast to ObjectId failed for value "khu" (type string) at path "_id" for model "Example"',
+        },
+    },
 };

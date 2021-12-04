@@ -3,6 +3,8 @@ import { ExampleDoc } from '../types/example.interface';
 import { ExampleModel } from '../models/example.model';
 import { BaseController } from './base.controller';
 
+export const failedMessage: string = 'failed';
+
 export class ExampleController extends BaseController {
     constructor() {
         super(new ExampleModel());
@@ -21,7 +23,7 @@ export class ExampleController extends BaseController {
             await doc.save();
             this.jsonRes(doc, res);
         } catch (e) {
-            this.errRes(e, res, 'Failed');
+            this.errRes(e, res, failedMessage);
         }
     }
 }

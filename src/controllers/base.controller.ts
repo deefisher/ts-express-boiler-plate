@@ -57,14 +57,19 @@ export class BaseController {
      * Returns all documents of model
      */
     find(res: Response, populate?: IPopulate, errMsg = messageStrings.failedToFindDocuments) {
-        this.model.find(populate).then(
-            (doc) => {
-                this.jsonRes(doc, res);
-            },
-            (err) => {
-                this.errRes(err, res, errMsg);
-            },
-        );
+        this.model
+            .find(populate)
+            .then(
+                (doc) => {
+                    this.jsonRes(doc, res);
+                },
+                (err) => {
+                    this.errRes(err, res, errMsg);
+                },
+            )
+            .catch((err) => {
+                this.errRes(err, res, messageStrings.failedToFindDocuments);
+            });
     }
     /**
      * Returns single doucument of model specified by _id.
@@ -98,14 +103,19 @@ export class BaseController {
         populate?: IPopulate,
         errMsg = `${messageStrings.failedToFindDocument}${query}`,
     ) {
-        this.model.findOne(query, populate).then(
-            (doc) => {
-                this.jsonRes(doc, res);
-            },
-            (err) => {
-                this.errRes(err, res, errMsg);
-            },
-        );
+        this.model
+            .findOne(query, populate)
+            .then(
+                (doc) => {
+                    this.jsonRes(doc, res);
+                },
+                (err) => {
+                    this.errRes(err, res, errMsg);
+                },
+            )
+            .catch((err) => {
+                this.errRes(err, res, messageStrings.failedToFindDocument);
+            });
     }
     findMany(
         res: Response,
@@ -113,14 +123,19 @@ export class BaseController {
         populate?: IPopulate,
         errMsg = `${messageStrings.failedToFindDocument}${query}`,
     ) {
-        this.model.findMany(query, populate).then(
-            (doc) => {
-                this.jsonRes(doc, res);
-            },
-            (err) => {
-                this.errRes(err, res, errMsg);
-            },
-        );
+        this.model
+            .findMany(query, populate)
+            .then(
+                (doc) => {
+                    this.jsonRes(doc, res);
+                },
+                (err) => {
+                    this.errRes(err, res, errMsg);
+                },
+            )
+            .catch((err) => {
+                this.errRes(err, res, messageStrings.failedToFindDocument);
+            });
     }
 
     /**
@@ -133,26 +148,36 @@ export class BaseController {
         populate?: IPopulate | IPopulate[],
         errMsg = `${messageStrings.failedToUpdateDocument} ${documentId}`,
     ) {
-        this.model.updateById(documentId, document, populate).then(
-            (doc) => {
-                this.jsonRes(doc, res);
-            },
-            (err) => {
-                this.errRes(err, res, errMsg);
-            },
-        );
+        this.model
+            .updateById(documentId, document, populate)
+            .then(
+                (doc) => {
+                    this.jsonRes(doc, res);
+                },
+                (err) => {
+                    this.errRes(err, res, errMsg);
+                },
+            )
+            .catch((err) => {
+                this.errRes(err, res, messageStrings.failedToUpdateDocument);
+            });
     }
     /**
      * Deletes a single document selected by id
      */
     deleteById(res: Response, documentId: string, errMsg = `${messageStrings.failedToDeleteDocument} ${documentId}`) {
-        this.model.deleteById(documentId).then(
-            (doc) => {
-                this.jsonRes(doc, res);
-            },
-            (err) => {
-                this.errRes(err, res, errMsg);
-            },
-        );
+        this.model
+            .deleteById(documentId)
+            .then(
+                (doc) => {
+                    this.jsonRes(doc, res);
+                },
+                (err) => {
+                    this.errRes(err, res, errMsg);
+                },
+            )
+            .catch((err) => {
+                this.errRes(err, res, messageStrings.failedToDeleteDocument);
+            });
     }
 }
